@@ -39,4 +39,16 @@ async function addContact(req, res) {
     }
 }
 
-module.exports = {addContact};
+async function deleteContact(req, res) {
+    try {
+      const contact = await Contact.findOne({ _id: req.query.id });
+  
+      const deleteResult = await contact.remove();
+  
+      return res.send("Contact deleted");
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+module.exports = {addContact, deleteContact};
