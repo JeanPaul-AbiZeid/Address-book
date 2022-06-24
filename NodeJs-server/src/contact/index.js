@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const {getContacts, addContact, updateContact, deleteContact} = require('./contact');
+const {addContact} = require('./contact');
 const router = Router();
 
-router.get('/', getContacts);
-router.post('/', addContact);
-router.put('/', updateContact);
-router.delete('/', deleteContact);
+// router.get('/', getContacts);
+router.post('/add', addContact);
+// router.put('/', updateContact);
+// router.delete('/', deleteContact);
 
 module.exports = router;
