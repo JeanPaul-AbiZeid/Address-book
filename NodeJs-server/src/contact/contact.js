@@ -68,4 +68,23 @@ async function getContacts(req, res) {
     }
 }
 
-module.exports = {addContact, deleteContact, getContacts};
+async function updateContact(req, res) {
+    try {
+      const {
+        name,
+        number,
+        status,
+        email,
+        lat,
+        long
+      } = req.body;
+  
+      const updated_contact = await Contact.findByIdAndUpdate(req.query.id, {name, number, status, email, lat, long});
+  
+      return res.send("Contact updated");
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+module.exports = {addContact, deleteContact, getContacts, updateContact};
