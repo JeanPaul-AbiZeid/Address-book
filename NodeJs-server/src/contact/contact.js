@@ -51,4 +51,21 @@ async function deleteContact(req, res) {
     }
 }
 
-module.exports = {addContact, deleteContact};
+async function get(id) {
+    return await Contact.find({ "user_id" : id });
+}
+
+async function getContacts(req, res) {
+    try {
+      console.log(req.query);
+  
+      const result = await get(req.query.user_id);
+      console.log('result =>', result);
+  
+      return res.send(result);
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+module.exports = {addContact, deleteContact, getContacts};
