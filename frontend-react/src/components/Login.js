@@ -34,7 +34,36 @@ const Login = () => {
                     
                     function onSubmit(e){
                     e.preventDefault();
+                    console.log("test")
+                    console.log(email)
+                    console.log(password)}
+                    // let data = new FormData();
+
+                    // data.append('email', email);
+                    // data.append('password', password);
                     
+                    // axios({
+                    //     method: 'post',
+                    //     url: 'http://127.0.0.1:8000/api/login',
+                    //     data: data,
+                    //   })
+                    //   .then(function (response) {
+                    //     let user_id = response.data.user.id
+                    //     localStorage.setItem("user_id", user_id);
+                    //     var token = response.data.authorisation.token
+                    //     localStorage.setItem("jwt", token);
+                    //     response.data.user.type === 1 ? Navigation("/Surveys") : Navigation("/Admin")
+                        
+                    //   })
+                    //   .catch(function (error){
+                    //       if(error.response.data.message === "Unauthorized"){
+                    //           alert("Incorrect email or password");
+                    //       }
+                    //       else{
+                    //           alert(error.response.data.message);
+                    //       }
+                    //   })
+                    // }
                     }
                 >Log in</button>
                 
