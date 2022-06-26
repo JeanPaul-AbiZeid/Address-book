@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import '../App.css';
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-const Surveys = () => {
+const Contacts = () => {
     const {id} = useParams()
     const Navigation = useNavigate();
     const [contacts, setContacts] = useState([]);
@@ -53,4 +53,4 @@ const Surveys = () => {
     );
   };
 
-export default Surveys;
+export default Contacts;
