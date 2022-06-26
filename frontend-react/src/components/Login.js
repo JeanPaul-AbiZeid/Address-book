@@ -1,6 +1,5 @@
 import React from "react";
 import '../App.css';
-
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
@@ -34,50 +33,16 @@ const Login = () => {
                     
                     function onSubmit(e){
                     e.preventDefault();
-                    // console.log("test")
-                    // console.log(email)
-                    // console.log(password)
 
-                    // let req = new FormData();
                     let req = {"email" : email, "password" : password}
-
-                    // req.append('email', email);
-                    // req.append('password', password);
-
-                    // const request = {
-                    //     method: 'POST',
-                    //     headers: { 'Content-Type': 'application/json' },
-                    //     body: JSON.stringify({req})
-                    // };
-                    // const fetchLogin = async () => {
-                    //     try {
-                    //         const res = await fetch("localhost:3000/api/user/auth/login", request);
-                    //         const data = await res.json();
-                    //         return data;
-                    //         console.log(data)
-                    //     } catch (err) {
-                    //         console.log(err);
-                    //     }
-                    // };
-
-                    
 
                     axios({
                         method: 'post',
-                        url: 'http://localhost:8080/api/user/auth/login',
-                        // mode: 'no-cors',
-                        // headers: {"Access-Control-Allow-Origin": "*"}, 
+                        url: 'http://localhost:8080/api/user/auth/login', 
                         data: req,
-                        // withCredentials: true,
-                        // credentials: 'same-origin',
                       })
                       .then(function (response) {
-                        console.log(response)
-                    // //     let user_id = response.data.user.id
-                    // //     localStorage.setItem("user_id", user_id);
-                    // //     var token = response.data.authorisation.token
-                    // //     localStorage.setItem("jwt", token);
-                    // //     response.data.user.type === 1 ? Navigation("/Surveys") : Navigation("/Admin")
+                        Navigation(`/Contacts/${response.data.id}`)
                         
                       })
                       .catch(function (error){
