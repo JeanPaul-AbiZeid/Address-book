@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import '../App.css';
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Contact from "./Contact";
 
 const Contacts = () => {
     const {id} = useParams()
@@ -39,13 +40,29 @@ const Contacts = () => {
     return (
     <div>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Number</th>
-                <th>Status</th>
-                <th>Email</th>
-                <th>Location</th>
-            </tr>
+            <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Status</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                </tr>
+                
+                {contacts.length === 0
+                    ? "No Contacts Yet"
+                    : contacts.map((contacts, index) => {
+                        return  <Contact
+                            key = {index}
+                            id = {contacts.id}
+                            name = {contacts.name}
+                            number = {contacts.number}
+                            email = {contacts.email}
+                            status = {contacts.status}
+                            location = "location"
+                        />}
+                        )}
+            </tbody>
             
         </table>
     </div>
