@@ -5,8 +5,13 @@ import Contact from "./Contact";
 
 const Contacts = () => {
     const {id} = useParams()
-    const Navigation = useNavigate();
     const [contacts, setContacts] = useState([]);
+    const [isActive, setIsActive] = useState(false);
+
+    const handleClick = event => {
+        //  toggle isActive state on click
+        setIsActive(current => !current);
+      };
     
     useEffect(() => {
     //Accepts a function to perform on certain changes
@@ -39,6 +44,21 @@ const Contacts = () => {
 
     return (
     <div>
+        <button className={!isActive ? "show" : "hide"}
+        onClick={function toggle(){
+            handleClick();}}>Add Contact</button>
+        <form className={isActive ? "show" : "hide"}>
+            <input placeholder="Name"></input><br/>
+            <input placeholder="Number"></input><br/>
+            <input placeholder="Status"></input><br/>
+            <input placeholder="Email"></input><br/>
+            <button>Location</button><br/>
+            <button onClick={
+                function Create(e){
+                e.preventDefault();
+                handleClick();
+                }}>Create</button>
+        </form>
         <table>
             <tbody>
                 <tr>
