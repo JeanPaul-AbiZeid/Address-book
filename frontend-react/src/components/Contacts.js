@@ -38,7 +38,16 @@ const Surveys = () => {
 
     return (
     <div>
-        <h1>test</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Status</th>
+                <th>Email</th>
+                <th>Location</th>
+            </tr>
+            
+        </table>
     </div>
         
     );
