@@ -3,7 +3,7 @@ import '../App.css';
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import axios from 'axios';
+import axios from 'axios';
 
 
 
@@ -34,36 +34,57 @@ const Login = () => {
                     
                     function onSubmit(e){
                     e.preventDefault();
-                    console.log("test")
-                    console.log(email)
-                    console.log(password)}
-                    // let data = new FormData();
+                    // console.log("test")
+                    // console.log(email)
+                    // console.log(password)
 
-                    // data.append('email', email);
-                    // data.append('password', password);
+                    // let req = new FormData();
+                    let req = {"email" : email, "password" : password}
+
+                    // req.append('email', email);
+                    // req.append('password', password);
+
+                    // const request = {
+                    //     method: 'POST',
+                    //     headers: { 'Content-Type': 'application/json' },
+                    //     body: JSON.stringify({req})
+                    // };
+                    // const fetchLogin = async () => {
+                    //     try {
+                    //         const res = await fetch("localhost:3000/api/user/auth/login", request);
+                    //         const data = await res.json();
+                    //         return data;
+                    //         console.log(data)
+                    //     } catch (err) {
+                    //         console.log(err);
+                    //     }
+                    // };
+
                     
-                    // axios({
-                    //     method: 'post',
-                    //     url: 'http://127.0.0.1:8000/api/login',
-                    //     data: data,
-                    //   })
-                    //   .then(function (response) {
-                    //     let user_id = response.data.user.id
-                    //     localStorage.setItem("user_id", user_id);
-                    //     var token = response.data.authorisation.token
-                    //     localStorage.setItem("jwt", token);
-                    //     response.data.user.type === 1 ? Navigation("/Surveys") : Navigation("/Admin")
+
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8080/api/user/auth/login',
+                        // mode: 'no-cors',
+                        // headers: {"Access-Control-Allow-Origin": "*"}, 
+                        data: req,
+                        // withCredentials: true,
+                        // credentials: 'same-origin',
+                      })
+                      .then(function (response) {
+                        console.log(response)
+                    // //     let user_id = response.data.user.id
+                    // //     localStorage.setItem("user_id", user_id);
+                    // //     var token = response.data.authorisation.token
+                    // //     localStorage.setItem("jwt", token);
+                    // //     response.data.user.type === 1 ? Navigation("/Surveys") : Navigation("/Admin")
                         
-                    //   })
-                    //   .catch(function (error){
-                    //       if(error.response.data.message === "Unauthorized"){
-                    //           alert("Incorrect email or password");
-                    //       }
-                    //       else{
-                    //           alert(error.response.data.message);
-                    //       }
-                    //   })
-                    // }
+                      })
+                      .catch(function (error){
+                        console.log(error)
+                        alert("Incorrect email or password");
+                      })
+                    }
                     }
                 >Log in</button>
                 
