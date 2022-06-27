@@ -2,15 +2,75 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: rgb(62, 62, 62);
 }
 
-.main{
+body{
   background-color: darkgoldenrod;
 }
 
-.flex{
+.main{
+  width: 100%;
+  margin-top: 10%;
   display: flex;
+  justify-content: center;
+}
+
+#form {
+  margin-top: 4%;
+}
+
+.form-container {
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  width: 396px;
+  padding-bottom: 12px;
+  padding-top: 14px;
+  padding-bottom: 2%;
+}
+
+.form-container input {
+  width: 364px;
+  font-size: 22px;
+  line-height: 2;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#pass {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+#pass input {
+  width: 10%;
+  margin: 0;
+  align-items: center;
+}
+
+.btn {
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-gray {
+  background-color: rgb(62, 62, 62);
+  color: white;
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: bold;
+  width: 364px;
+  margin-top: 6%;
+}
+
+.btn-gray:hover {
+  background-color: rgb(46, 43, 43);
 }
 
 .show{
