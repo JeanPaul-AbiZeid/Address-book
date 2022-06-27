@@ -3,6 +3,8 @@ import '../App.css';
 import { useParams } from "react-router-dom";
 import Contact from "./Contact";
 import axios from 'axios';
+import Map from "./Map";
+
 
 const Contacts = () => {
     const {id} = useParams()
@@ -97,7 +99,8 @@ const Contacts = () => {
                         document.getElementById("email").value = "";
                     })
                     .catch(function (error){
-                    console.log(error)
+                        console.log(error)
+                        alert(error)
                     })
                 }
                 }
@@ -132,6 +135,7 @@ const Contacts = () => {
             </tbody>
             
         </table>
+        <Map />        
     </div>
         
     );
