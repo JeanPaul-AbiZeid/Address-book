@@ -43,21 +43,24 @@ const Contacts = () => {
 
 
     return (
-    <div>
-        <button className={!isActive ? "show" : "hide"}
+    <div className="contacts">
+        <button className={!isActive ? "show add" : "hide"}
         onClick={function toggle(){
             handleClick();}}>Add Contact</button>
-        <form className={isActive ? "show" : "hide"}>
+        <form className={isActive ? "show form" : "hide"}>
             <input placeholder="Name"></input><br/>
             <input placeholder="Number"></input><br/>
             <input placeholder="Status"></input><br/>
             <input placeholder="Email"></input><br/>
-            <button>Location</button><br/>
-            <button onClick={
+            <div className="buttons-container">
+                <button className="location-button">Location</button>
+                <button className="create" onClick={
                 function Create(e){
                 e.preventDefault();
                 handleClick();
                 }}>Create</button>
+            </div>
+            
         </form>
         <table>
             <tbody>
@@ -79,7 +82,7 @@ const Contacts = () => {
                             number = {contacts.number}
                             email = {contacts.email}
                             status = {contacts.status}
-                            location = "location"
+                            location = "Show Location"
                         />}
                         )}
             </tbody>
