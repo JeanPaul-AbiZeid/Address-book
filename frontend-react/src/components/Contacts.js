@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 import Contact from "./Contact";
 import axios from 'axios';
 import Map from "./Map";
+import { FaWindowClose } from "react-icons/fa";
 
 
 const Contacts = () => {
+    
     const {id} = useParams()
     const [contacts, setContacts] = useState([]);
     const [isActive, setIsActive] = useState(false);
@@ -16,7 +18,7 @@ const Contacts = () => {
     const [number, setNumber] = useState("");
     const [lat, setLat] = useState("33.896694");
     const [long, setLong] = useState("35.541887");
-    // const [location, setLocation] = useState([ 33.896694, 35.541887]);
+    const [show, setShow] = useState(false);
 
     const handleClick = event => {
         //  toggle isActive state on click
@@ -24,9 +26,9 @@ const Contacts = () => {
     };
 
     function Location(lat, long){
-        // setLocation(loc_array)
-        setLat(lat)
-        setLong(long)
+        setShow(current => !current);
+        setLat(lat);
+        setLong(long);
     };
     
     useEffect(() => {
@@ -34,17 +36,20 @@ const Contacts = () => {
     const getContacts = async () => {
         const Contacts = await fetchContacts();
         setContacts(Contacts);
+       
     };
     getContacts();
     }, []);
+
 
     useEffect(() => {
     const getContacts = async () => {
         const Contacts = await fetchContacts();
         setContacts(Contacts);
     };
+    window.dispatchEvent(new Event('resize'))
     getContacts();
-        });
+    });
     
     
     const fetchContacts = async () => {
@@ -146,7 +151,11 @@ const Contacts = () => {
             </tbody>
         </table>
 
-        <Map lat={lat} long={long}/>  
+        <div className={show ? "map" : "no_map"}>
+            <FaWindowClose className="close" onClick={() => {setShow(current => !current)}}/>
+            <Map lat={lat} long={long}/> 
+        </div>
+         
     </div>
         
     );
