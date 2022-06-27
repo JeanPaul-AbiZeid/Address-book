@@ -8,7 +8,7 @@ const ContactRow = ({id, name, number, status, email, location}) => {
         <td>{number}</td>
         <td>{status}</td>
         <td>{email}</td>
-        <td><button>{location}</button></td>
+        <td className="location">{location}</td>
     </tr>
   );
 };

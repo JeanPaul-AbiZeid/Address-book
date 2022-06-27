@@ -151,3 +151,22 @@ body{
   margin-bottom: 2%;
   background-color: green;
 }
+
+table{
+  width: 100%;
+  background-color: white;
+}
+
+table, td, th {
+  border: 1px solid;
+}
+
+td {
+  height: 30px;
+  vertical-align: center;
+  text-align: center;
+}
+
+.location{
+  cursor: pointer;
+}
