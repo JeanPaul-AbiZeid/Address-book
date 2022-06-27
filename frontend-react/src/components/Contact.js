@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContactRow = ({id, name, number, status, email, location}) => {
+const ContactRow = ({id, name, number, status, email, location, onDelete}) => {
   
   return (
     <tr id={id}>
@@ -9,7 +9,9 @@ const ContactRow = ({id, name, number, status, email, location}) => {
         <td>{status}</td>
         <td>{email}</td>
         <td className="location">{location}</td>
-        <td>delete</td>
+        <td onClick={() => {
+            onDelete(id);
+          }}>delete</td>
         <td>edit</td>
     </tr>
   );

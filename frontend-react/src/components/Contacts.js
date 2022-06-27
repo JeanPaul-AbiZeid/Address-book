@@ -50,6 +50,18 @@ const Contacts = () => {
         }
     };
 
+    // Deleting Contact according to id
+    const deleteContact = async (contact_id) => {
+        const res = await fetch("http://localhost:8080/api/contact/?id=" + contact_id, {
+        method: "DELETE",
+        });
+
+        // Checking Deletion Status
+        res.status === 200
+        ? alert("Contact Deleted")
+        : alert("Error Deleting");
+    };
+
 
     return (
     <div className="contacts">
@@ -57,10 +69,10 @@ const Contacts = () => {
         onClick={function toggle(){
             handleClick();}}>Add Contact</button>
         <form className={isActive ? "show form" : "hide"}>
-            <input placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
-            <input placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
-            <input placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>
-            <input placeholder="Email" onChange={(e) => {setEmail(e.target.value);}}></input><br/>
+            <input id="name" placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
+            <input id="number" placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
+            <input id="status" placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>
+            <input id="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value);}}></input><br/>
             <div className="buttons-container">
                 <button className="location-button">Location</button>
                 <button className="create" onClick={
@@ -75,8 +87,10 @@ const Contacts = () => {
                     data: req,
                     })
                     .then(function (response) {
-                    console.log(response)
-                    
+                        document.getElementById("name").value = "";
+                        document.getElementById("number").value = "";
+                        document.getElementById("status").value = "";
+                        document.getElementById("email").value = "";
                     })
                     .catch(function (error){
                     console.log(error)
@@ -102,12 +116,13 @@ const Contacts = () => {
                     : contacts.map((contacts, index) => {
                         return  <Contact
                             key = {index}
-                            id = {contacts.id}
+                            id = {contacts._id}
                             name = {contacts.name}
                             number = {contacts.number}
                             email = {contacts.email}
                             status = {contacts.status}
                             location = "Show Location"
+                            onDelete={deleteContact}
                         />}
                         )}
             </tbody>
