@@ -167,6 +167,12 @@ td {
   text-align: center;
 }
 
-.location{
+.cursor{
   cursor: pointer;
+}
+
+.close{
+  cursor: pointer;
+  float: right;
+  margin-bottom: 1%;
 }

@@ -69,6 +69,10 @@ const Contacts = () => {
         onClick={function toggle(){
             handleClick();}}>Add Contact</button>
         <form className={isActive ? "show form" : "hide"}>
+            <span className="close" onClick={
+                function Create(e){
+                e.preventDefault();
+                handleClick();}}>x</span>
             <input id="name" placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
             <input id="number" placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
             <input id="status" placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>

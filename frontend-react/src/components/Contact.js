@@ -8,8 +8,8 @@ const ContactRow = ({id, name, number, status, email, location, onDelete}) => {
         <td>{number}</td>
         <td>{status}</td>
         <td>{email}</td>
-        <td className="location">{location}</td>
-        <td onClick={() => {
+        <td className="cursor">{location}</td>
+        <td className="cursor" onClick={() => {
             onDelete(id);
           }}>delete</td>
         <td>edit</td>
