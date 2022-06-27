@@ -9,6 +9,8 @@ const ContactRow = ({id, name, number, status, email, location}) => {
         <td>{status}</td>
         <td>{email}</td>
         <td className="location">{location}</td>
+        <td>delete</td>
+        <td>edit</td>
     </tr>
   );
 };

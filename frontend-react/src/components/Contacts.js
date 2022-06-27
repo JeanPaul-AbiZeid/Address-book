@@ -1,12 +1,17 @@
 import React, {useState, useEffect} from "react";
 import '../App.css';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Contact from "./Contact";
+import axios from 'axios';
 
 const Contacts = () => {
     const {id} = useParams()
     const [contacts, setContacts] = useState([]);
     const [isActive, setIsActive] = useState(false);
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState("");
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
 
     const handleClick = event => {
         //  toggle isActive state on click
@@ -23,7 +28,11 @@ const Contacts = () => {
     }, []);
 
     useEffect(() => {
-        console.log(contacts)
+    const getContacts = async () => {
+        const Contacts = await fetchContacts();
+        setContacts(Contacts);
+    };
+    getContacts();
         });
     
     
@@ -48,17 +57,33 @@ const Contacts = () => {
         onClick={function toggle(){
             handleClick();}}>Add Contact</button>
         <form className={isActive ? "show form" : "hide"}>
-            <input placeholder="Name"></input><br/>
-            <input placeholder="Number"></input><br/>
-            <input placeholder="Status"></input><br/>
-            <input placeholder="Email"></input><br/>
+            <input placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
+            <input placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
+            <input placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>
+            <input placeholder="Email" onChange={(e) => {setEmail(e.target.value);}}></input><br/>
             <div className="buttons-container">
                 <button className="location-button">Location</button>
                 <button className="create" onClick={
                 function Create(e){
                 e.preventDefault();
                 handleClick();
-                }}>Create</button>
+                let req = {"email" : email, "name" : name, "number" : number, "status" : status, "user_id" : id, "lat": 1, "long" : 1 }
+
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8080/api/contact', 
+                    data: req,
+                    })
+                    .then(function (response) {
+                    console.log(response)
+                    
+                    })
+                    .catch(function (error){
+                    console.log(error)
+                    })
+                }
+                }
+                >Create</button>
             </div>
             
         </form>
