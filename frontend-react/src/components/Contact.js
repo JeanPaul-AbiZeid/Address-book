@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContactRow = ({id, name, number, status, email, location, onDelete}) => {
+const ContactRow = ({id, name, number, status, email, lat, long, onLocation, onDelete}) => {
   
   return (
     <tr id={id}>
@@ -8,7 +8,9 @@ const ContactRow = ({id, name, number, status, email, location, onDelete}) => {
         <td>{number}</td>
         <td>{status}</td>
         <td>{email}</td>
-        <td className="cursor">{location}</td>
+        <td className="cursor" onClick={() => {
+          onLocation(lat, long)
+        }}>Show Location</td>
         <td className="cursor" onClick={() => {
             onDelete(id);
           }}>delete</td>

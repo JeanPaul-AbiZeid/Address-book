@@ -14,11 +14,20 @@ const Contacts = () => {
     const [status, setStatus] = useState("");
     const [name, setName] = useState("");
     const [number, setNumber] = useState("");
+    const [lat, setLat] = useState("33.896694");
+    const [long, setLong] = useState("35.541887");
+    // const [location, setLocation] = useState([ 33.896694, 35.541887]);
 
     const handleClick = event => {
         //  toggle isActive state on click
         setIsActive(current => !current);
-      };
+    };
+
+    function Location(lat, long){
+        // setLocation(loc_array)
+        setLat(lat)
+        setLong(long)
+    };
     
     useEffect(() => {
     //Accepts a function to perform on certain changes
@@ -128,14 +137,16 @@ const Contacts = () => {
                             number = {contacts.number}
                             email = {contacts.email}
                             status = {contacts.status}
-                            location = "Show Location"
-                            onDelete={deleteContact}
+                            lat = {contacts.lat}
+                            long = {contacts.long}
+                            onLocation = {Location}
+                            onDelete = {deleteContact}
                         />}
                         )}
             </tbody>
-            
         </table>
-        <Map />        
+
+        <Map lat={lat} long={long}/>  
     </div>
         
     );

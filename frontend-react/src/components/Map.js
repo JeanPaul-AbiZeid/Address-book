@@ -1,23 +1,17 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import '../App.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from "leaflet";
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 
-const Map = () => {
+const Map = ({lat, long}) => {
 
     return (
         <div className="leaflet-container">
-            <MapContainer center={[45.4, -75.7]} zoom={12}scrollWheelZoom={false}>
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    />
+            <MapContainer center={[lat, long]} zoom={12}scrollWheelZoom={false}>
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                <Marker position={[lat, long]}/>
             </MapContainer>
         </div>
     );
 };
-
-
-
 
 export default Map;
