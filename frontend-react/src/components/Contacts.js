@@ -8,7 +8,6 @@ import { FaWindowClose } from "react-icons/fa";
 
 
 const Contacts = () => {
-    
     const {id} = useParams()
     const [contacts, setContacts] = useState([]);
     const [isActive, setIsActive] = useState(false);
@@ -19,6 +18,8 @@ const Contacts = () => {
     const [lat, setLat] = useState("33.896694");
     const [long, setLong] = useState("35.541887");
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState('');
+
 
     const handleClick = event => {
         //  toggle isActive state on click
@@ -30,27 +31,27 @@ const Contacts = () => {
         setLat(lat);
         setLong(long);
     };
-    
+
+    window.dispatchEvent(new Event('resize'))
+
     useEffect(() => {
     //Accepts a function to perform on certain changes
     const getContacts = async () => {
         const Contacts = await fetchContacts();
         setContacts(Contacts);
-       
     };
     getContacts();
     }, []);
 
-
-    useEffect(() => {
-    const getContacts = async () => {
-        const Contacts = await fetchContacts();
-        setContacts(Contacts);
+    const handleSearch = (event) => {
+        setSearch(event.target.value);
     };
-    window.dispatchEvent(new Event('resize'))
-    getContacts();
-    });
     
+    useEffect(() => {
+        const resultFromSearch = contacts.filter((contact) =>
+            contact.name.includes(search));
+        setContacts(resultFromSearch);
+    }, [search]);
     
     const fetchContacts = async () => {
 
@@ -74,7 +75,7 @@ const Contacts = () => {
 
         // Checking Deletion Status
         res.status === 200
-        ? alert("Contact Deleted")
+        ? setContacts(contacts.filter((contact) => contact._id !== contact_id))
         : alert("Error Deleting");
     };
 
@@ -111,6 +112,7 @@ const Contacts = () => {
                         document.getElementById("number").value = "";
                         document.getElementById("status").value = "";
                         document.getElementById("email").value = "";
+                        setContacts([...contacts, response.data])
                     })
                     .catch(function (error){
                         console.log(error)
@@ -122,6 +124,8 @@ const Contacts = () => {
             </div>
             
         </form>
+
+        <label htmlFor="search">Search:<input id="search" type="text" onChange={handleSearch} /></label>
         <table>
             <tbody>
                 <tr>
@@ -152,7 +156,7 @@ const Contacts = () => {
         </table>
 
         <div className={show ? "map" : "no_map"}>
-            <FaWindowClose className="close" onClick={() => {setShow(current => !current)}}/>
+            <FaWindowClose className="close close-map" onClick={() => {setShow(current => !current)}}/>
             <Map lat={lat} long={long}/> 
         </div>
          

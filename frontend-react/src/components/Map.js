@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useRef, useMemo} from "react";
 import '../App.css';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 
@@ -9,7 +9,9 @@ const Map = ({lat, long}) => {
         map.setView(coords, map.getZoom());
       
         return null;
-      }
+    }
+
+    
       
     return (
         <div className="leaflet-container">

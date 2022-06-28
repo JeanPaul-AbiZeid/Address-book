@@ -14,7 +14,6 @@ const ContactRow = ({id, name, number, status, email, lat, long, onLocation, onD
         <td className="cursor" onClick={() => {
             onDelete(id);
           }}>delete</td>
-        <td>edit</td>
     </tr>
   );
 };
