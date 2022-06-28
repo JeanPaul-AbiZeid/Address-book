@@ -11,8 +11,6 @@ const Map = ({lat, long}) => {
         return null;
     }
 
-    
-      
     return (
         <div className="leaflet-container">
             <MapContainer center={position} zoom={12} scrollWheelZoom={false}>

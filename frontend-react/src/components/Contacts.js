@@ -18,7 +18,7 @@ const Contacts = () => {
     const [lat, setLat] = useState("33.896694");
     const [long, setLong] = useState("35.541887");
     const [show, setShow] = useState(false);
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(null);
 
 
     const handleClick = event => {
@@ -44,14 +44,13 @@ const Contacts = () => {
     }, []);
 
     const handleSearch = (event) => {
-        setSearch(event.target.value);
-    };
-    
-    useEffect(() => {
         const resultFromSearch = contacts.filter((contact) =>
-            contact.name.includes(search));
-        setContacts(resultFromSearch);
-    }, [search]);
+            contact.name.includes(event.target.value) || contact.number.includes(event.target.value));
+        setSearch(resultFromSearch);
+        if(event.target.value === ""){
+            setSearch(null)
+        }
+    };
     
     const fetchContacts = async () => {
 
@@ -73,10 +72,8 @@ const Contacts = () => {
         method: "DELETE",
         });
 
-        // Checking Deletion Status
-        res.status === 200
-        ? setContacts(contacts.filter((contact) => contact._id !== contact_id))
-        : alert("Error Deleting");
+        setContacts(contacts.filter((contact) => contact._id !== contact_id))
+        setSearch(search.filter((contact) => contact._id !== contact_id))
     };
 
 
@@ -138,7 +135,7 @@ const Contacts = () => {
                 
                 {contacts.length === 0
                     ? "No Contacts Yet"
-                    : contacts.map((contacts, index) => {
+                    : !search ? contacts.map((contacts, index) => {
                         return  <Contact
                             key = {index}
                             id = {contacts._id}
@@ -150,8 +147,20 @@ const Contacts = () => {
                             long = {contacts.long}
                             onLocation = {Location}
                             onDelete = {deleteContact}
-                        />}
-                        )}
+                        />}) : search.map((contacts, index) => {
+                            return  <Contact
+                                key = {index}
+                                id = {contacts._id}
+                                name = {contacts.name}
+                                number = {contacts.number}
+                                email = {contacts.email}
+                                status = {contacts.status}
+                                lat = {contacts.lat}
+                                long = {contacts.long}
+                                onLocation = {Location}
+                                onDelete = {deleteContact}
+                        />
+                        })}
             </tbody>
         </table>
 
