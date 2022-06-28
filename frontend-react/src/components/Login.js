@@ -51,12 +51,14 @@ const Login = () => {
                             data: req,
                             })
                             .then(function (response) {
-                            Navigation(`/Contacts/${response.data.id}`)
+                                var token = response.data.token
+                                localStorage.setItem("jwt", token);
+                                Navigation(`/Contacts/${response.data.id}`)
                             
                             })
                             .catch(function (error){
-                            console.log(error)
-                            alert("Incorrect email or password");
+                                console.log(error)
+                                alert("Incorrect email or password");
                             })
                         }
                         }
