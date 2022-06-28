@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import '../App.css';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Contact from "./Contact";
 import axios from 'axios';
 import Map from "./Map";
@@ -8,6 +8,7 @@ import { FaWindowClose } from "react-icons/fa";
 
 
 const Contacts = () => {
+    const Navigation = useNavigate();
     const {id} = useParams()
     const [contacts, setContacts] = useState([]);
     const [isActive, setIsActive] = useState(false);
@@ -72,104 +73,123 @@ const Contacts = () => {
         method: "DELETE",
         });
 
-        setContacts(contacts.filter((contact) => contact._id !== contact_id))
-        setSearch(search.filter((contact) => contact._id !== contact_id))
+        setContacts(contacts.filter((contact) => contact._id !== contact_id));
+        if(search){
+            setSearch(search.filter((contact) => contact._id !== contact_id));
+        }
     };
 
 
     return (
-    <div className="contacts">
-        <button className={!isActive ? "show add" : "hide"}
-        onClick={function toggle(){
-            handleClick();}}>Add Contact</button>
-        <form className={isActive ? "show form" : "hide"}>
-            <span className="close" onClick={
-                function Create(e){
-                e.preventDefault();
-                handleClick();}}>x</span>
-            <input id="name" placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
-            <input id="number" placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
-            <input id="status" placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>
-            <input id="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value);}}></input><br/>
-            <div className="buttons-container">
-                <button className="location-button">Location</button>
-                <button className="create" onClick={
-                function Create(e){
-                e.preventDefault();
-                handleClick();
-                let req = {"email" : email, "name" : name, "number" : number, "status" : status, "user_id" : id, "lat": 1, "long" : 1 }
+        <div>
+            <nav className="top-nav">
+                <h1>Address Book</h1>
+                <ul className="links">
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>
+                    <button className="btn-white" onClick={
+                        function logout(){
+                            localStorage.clear();
+                            Navigation("/")
+                        }
+                    }>Log Out</button>
+                </li>
+                </ul>
+            </nav>
+            <div className="contacts">
+                <button className={!isActive ? "show add" : "hide"}
+                onClick={function toggle(){
+                    handleClick();}}>Add Contact</button>
+                <form className={isActive ? "show form" : "hide"}>
+                    <span className="close" onClick={
+                        function Create(e){
+                        e.preventDefault();
+                        handleClick();}}>x</span>
+                    <input id="name" placeholder="Name" onChange={(e) => {setName(e.target.value);}}></input><br/>
+                    <input id="number" placeholder="Number" onChange={(e) => {setNumber(e.target.value);}}></input><br/>
+                    <input id="status" placeholder="Status" onChange={(e) => {setStatus(e.target.value);}}></input><br/>
+                    <input id="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value);}}></input><br/>
+                    <div className="buttons-container">
+                        <button className="location-button">Location</button>
+                        <button className="create" onClick={
+                        function Create(e){
+                        e.preventDefault();
+                        handleClick();
+                        let req = {"email" : email, "name" : name, "number" : number, "status" : status, "user_id" : id, "lat": 1, "long" : 1 }
 
-                axios({
-                    method: 'post',
-                    url: 'http://localhost:8080/api/contact', 
-                    data: req,
-                    })
-                    .then(function (response) {
-                        document.getElementById("name").value = "";
-                        document.getElementById("number").value = "";
-                        document.getElementById("status").value = "";
-                        document.getElementById("email").value = "";
-                        setContacts([...contacts, response.data])
-                    })
-                    .catch(function (error){
-                        console.log(error)
-                        alert(error)
-                    })
-                }
-                }
-                >Create</button>
-            </div>
-            
-        </form>
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:8080/api/contact', 
+                            data: req,
+                            })
+                            .then(function (response) {
+                                document.getElementById("name").value = "";
+                                document.getElementById("number").value = "";
+                                document.getElementById("status").value = "";
+                                document.getElementById("email").value = "";
+                                setContacts([...contacts, response.data])
+                            })
+                            .catch(function (error){
+                                console.log(error)
+                                alert(error)
+                            })
+                        }
+                        }
+                        >Create</button>
+                    </div>
+                    
+                </form>
 
-        <label htmlFor="search">Search:<input id="search" type="text" onChange={handleSearch} /></label>
-        <table>
-            <tbody>
-                <tr>
-                    <th>Name</th>
-                    <th>Number</th>
-                    <th>Status</th>
-                    <th>Email</th>
-                    <th>Location</th>
-                </tr>
+                <label htmlFor="search">Search:<input id="search" type="text" onChange={handleSearch} /></label>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Location</th>
+                        </tr>
+                        
+                        {contacts.length === 0
+                            ? "No Contacts Yet"
+                            : !search ? contacts.map((contacts, index) => {
+                                return  <Contact
+                                    key = {index}
+                                    id = {contacts._id}
+                                    name = {contacts.name}
+                                    number = {contacts.number}
+                                    email = {contacts.email}
+                                    status = {contacts.status}
+                                    lat = {contacts.lat}
+                                    long = {contacts.long}
+                                    onLocation = {Location}
+                                    onDelete = {deleteContact}
+                                />}) : search.map((contacts, index) => {
+                                    return  <Contact
+                                        key = {index}
+                                        id = {contacts._id}
+                                        name = {contacts.name}
+                                        number = {contacts.number}
+                                        email = {contacts.email}
+                                        status = {contacts.status}
+                                        lat = {contacts.lat}
+                                        long = {contacts.long}
+                                        onLocation = {Location}
+                                        onDelete = {deleteContact}
+                                />
+                                })}
+                    </tbody>
+                </table>
+
+                <div className={show ? "map" : "no_map"}>
+                    <FaWindowClose className="close close-map" onClick={() => {setShow(current => !current)}}/>
+                    <Map lat={lat} long={long}/> 
+                </div>
                 
-                {contacts.length === 0
-                    ? "No Contacts Yet"
-                    : !search ? contacts.map((contacts, index) => {
-                        return  <Contact
-                            key = {index}
-                            id = {contacts._id}
-                            name = {contacts.name}
-                            number = {contacts.number}
-                            email = {contacts.email}
-                            status = {contacts.status}
-                            lat = {contacts.lat}
-                            long = {contacts.long}
-                            onLocation = {Location}
-                            onDelete = {deleteContact}
-                        />}) : search.map((contacts, index) => {
-                            return  <Contact
-                                key = {index}
-                                id = {contacts._id}
-                                name = {contacts.name}
-                                number = {contacts.number}
-                                email = {contacts.email}
-                                status = {contacts.status}
-                                lat = {contacts.lat}
-                                long = {contacts.long}
-                                onLocation = {Location}
-                                onDelete = {deleteContact}
-                        />
-                        })}
-            </tbody>
-        </table>
-
-        <div className={show ? "map" : "no_map"}>
-            <FaWindowClose className="close close-map" onClick={() => {setShow(current => !current)}}/>
-            <Map lat={lat} long={long}/> 
+            </div>
         </div>
-         
-    </div>
         
     );
   };

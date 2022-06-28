@@ -15,6 +15,59 @@ body{
   justify-content: center;
 }
 
+/* NavBar */
+
+.top-nav {
+  display: flex;
+  background-color: rgb(62, 62, 62);
+  justify-content: space-between;
+  align-items: center;
+  padding: 0% 2%;
+  height: 80px;
+}
+
+.top-nav > h1{
+  color: white;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.links > li {
+  color: white;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.links > li:first-child {
+  text-decoration: underline;
+}
+
+.links > li:last-child {
+  margin-left: 0;
+}
+
+.btn-white {
+  background-color: white;
+  align-items: center;
+  color: rgb(62, 62, 62);
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  border-color: rgb(62, 62, 62);
+  padding: 2% 0;
+  width: 75px;
+  cursor: pointer;
+}
+
 #form {
   margin-top: 4%;
 }

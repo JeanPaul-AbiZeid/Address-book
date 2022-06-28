@@ -11,6 +11,21 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const Navigation = useNavigate();
   return (
+    <div>
+        <nav className="top-nav">
+                <h1>S-Maker</h1>
+                <ul className="links">
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>
+                        <button className="btn-white" onClick={
+                            function login(){
+                                Navigation("/")
+                            }
+                        }>Log In</button>
+                    </li>
+                </ul>
+            </nav>
     
         <div className="main">
             <div className="form-container">
@@ -59,7 +74,7 @@ const Signup = () => {
                 </form>
             </div>
         </div>
-
+    </div>
     
     
   );
